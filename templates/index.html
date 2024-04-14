@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST!!!!</title>
+</head>
+<body>
+    <h1 class="test">Welcome to Roksy! The interactive data bot.</h1>
+    <p>Please enter a csv, excel, or google sheet file here:</p>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>

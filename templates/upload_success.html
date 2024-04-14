@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Success</title>
+</head>
+<body>
+    <h1>File has successfully been uploaded. Please select the following options to view.</h1>
+    <h2>File Values</h2>
+    <p>{{ values }}</p>
+    <h2>Want to see some fun stats? Check this out!</h2>
+    <form action="/action_page.php">
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        <label for="vehicle1"> I have a bike</label><br>
+        <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+        <label for="vehicle2"> I have a car</label><br>
+        <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+        <label for="vehicle3"> I have a boat</label><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <h2>Preview of file:</h2>
+    {% include 'table.html' %}
+</body>
+</html>
