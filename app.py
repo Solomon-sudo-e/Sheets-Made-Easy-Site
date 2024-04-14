@@ -22,7 +22,7 @@ def upload():
         df = pd.read_csv(file)
     else:
         return 'not a csv file'
-    create_values(df)
+    create_values(df, 'templates/checkboxs.html')
     write_to_html_file(df.head(5), 'Your File', 'templates/table.html')
     return render_template('upload_success.html', values=df.columns.values.tolist())
 
@@ -30,6 +30,7 @@ def upload():
 @app.route('/statistics', methods=['GET','POST'])
 def statistics():
     return render_template('upload_success.html')
+
 
 if __name__ == '__main__':
     app.run()

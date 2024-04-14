@@ -1,3 +1,5 @@
+import pandas as pd
+import numpy as np
 
 def write_to_html_file(df, title='', filename='out.html'):
     result = '''
@@ -44,21 +46,36 @@ def write_to_html_file(df, title='', filename='out.html'):
         f.write(result)
 
 
-def create_values(df):
-    result = '''<form action="/action_page.php">
-  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-  <label for="vehicle1"> I have a bike</label><br>
-  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-  <label for="vehicle2"> I have a car</label><br>
-  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
-  <label for="vehicle3"> I have a boat</label><br><br>
-  <input type="submit" value="Submit">
+def find_potential_dtypes(df):
+    possible_stats = []
+    for col in df.columns:
+        if df[col].dtype == np.dtype('int64'):
+            possible_stats.append(col)
+
+        if df[col].dtype == np.dtype('object'):
+            try:
+                pd.to_numeric(col, downcast='integer')
+                possible_stats.append(col)
+            except ValueError:
+                print("Cannot append " + str(col))
+    return possible_stats
+
+
+def create_values(df, filename='out.html'):
+    possible_stats = find_potential_dtypes(df)
+
+    filler = ""
+    for possible_stat in possible_stats:
+        stat = str(possible_stat)
+        input = f'''<input type='checkbox' id='input_place_holder{stat}' name='input_place_holder{stat}' value='{stat}'>
+                 <label for='input_place_holder{stat}'>{stat}</label><br>
+            '''
+        filler += input
+    result = f'''<form action=/action_page.php>
+             {filler}
 </form>'''
-    index_of_ints = []
-    for row in df:
-        if type(row) == int:
-            index_of_ints[row.index] == row
-            print(row)
-    print(index_of_ints)
+    with open(filename, 'w') as f:
+        f.write(result)
+
 
 
